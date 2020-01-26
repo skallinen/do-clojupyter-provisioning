@@ -10,6 +10,8 @@ Eventually, I settled for a Digital Ocean droplet. They are easy to set up and m
 
 I'll try to capture and document the entire setup process here, to help myself in the future and perhaps lower the barrier for others to try. Provided here is also a small script that does most of the heavy lifting in terms of installing the conda stuff as it is not entirely trivial.
 
+Next to Clojupyter we will also install R and some packages there to be able to play with both the new python and R interop possibilities.
+
 ** Preparations
 *** Sign Up to Digital Ocean
  Follow the instructions [[https://www.digitalocean.com/docs/getting-started/sign-up][here at their pages]]
@@ -87,7 +89,7 @@ It will start by asking the system username. Give it a name. I used "grace".
 
 Next it will ask for you to type the UNIX password, type it into the prompt and then repeat it when it asks you to. Then press enter until the user configuration is finished.
 
-The system will now be installing. This will take quite some time. Go and have some lunch.
+The system will now be installing. This will take quite some time. About 45 minutes last time I tried. Most of the time is taken up by installing R Tidyverse. Take the opportunity and have some lunch. :-)
 
 Finally when it is finished log in as the user you defined above:
 
