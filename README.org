@@ -134,6 +134,6 @@ I hope to do another write-up explaining how you do data science with Clojure by
 ** Destroying the droplet
 In order to stop Digital Ocean from billing for the droplet you need to destroy it. This can be done simply by issuing this command:
 #+begin_src bash
-$ doctl compute droplet delete <enter-the-name-of-your-droplet>
+$ doctl compute droplet delete <the-name-of-your-droplet>
 #+end_src
 Provisioning a new one is simple just jump back to the previous section. 
