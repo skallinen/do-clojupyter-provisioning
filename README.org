@@ -1,5 +1,6 @@
-* Installing a Clojupyter notebook on Digital Ocean
-My daughter has a maths assignment for IB that needs to be ready in a few months. There is quite some text involved and also some maths. They normally use a combination of office tools: word, excel etc. Although I like to do my stuff in emacs, I showed her how Jupyter notebooks with Python work. She thought it was interesting, but as we have been doing some Clojure puzzles together for the past year, she asked if one could do the notebook things with Clojure. That of course warmed this old heart, and I replied that yes we can make that happen. 
+* Installing a Clojupyter notebook on a Digital Ocean droplet
+** Backstory  
+My daughter has a maths assignment for her IB school that needs to be ready in a few months. There is quite some text involved and also some maths, obviously. They normally use a combination of office tools: word, excel etc. Although I like to do my stuff in emacs, I showed her how Jupyter notebooks with Python work. She thought it was interesting, but as we have been doing some Clojure puzzles together for the past year, she asked if one could do the notebook things with Clojure. That of course warmed this old heart, and I replied that yes we can make that happen.
 First I loooked for different SaS notebooks, and could find any free or cheap that support clojure. Then I started looking into hosting one myself. The other option would be to install it on her laptop locally, but as I am guessing this will need some maintenance a cloud option is more handy for this use case. 
 So I settled for a Digital Ocean droplet. They are easy to set up and maintain and have a good command line tool to automate a big part of the process.
 
