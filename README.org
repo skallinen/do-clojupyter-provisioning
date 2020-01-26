@@ -66,7 +66,7 @@ $ git clone https://github.com/skallinen/do-clojupyter-provisioning.git
 $ cd do-clojupyter-provisioning
 #+end_src
 
-Run the following commands to create a droplet and copy the installation script to it:
+Run the following commands, by copypasting them to your terminal, to create a new droplet and copy the installation script into it:
 #+begin_src bash
 $ read  -p 'Enter the name of the droplet, something like 'do-clojupyter': ' NAME; doctl compute droplet create $NAME --size s-1vcpu-2gb --image ubuntu-18-04-x64 --region fra1 --ssh-keys  $(doctl compute ssh-key list --format FingerPrint --no-header) --enable-backups; echo "One moment, waiting for the droplet to spin up...";sleep 60; scp -o StrictHostKeyChecking=no notebook-install.sh root@$(doctl compute droplet list $NAME --format "PublicIPv4" --no-header):/root/; doctl compute ssh $NAME
 #+end_src
