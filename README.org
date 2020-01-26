@@ -58,7 +58,7 @@ I'll document the setup process here and provide for a script that does most of 
  $ doctl account get
  #+end_src
 
-** Provisioning the Clojupyter droplet installation
+** Provisioning the Clojupyter droplet and installing the system
 Start by cloning this repository and cd into the folder
 
 #+begin_src bash 
