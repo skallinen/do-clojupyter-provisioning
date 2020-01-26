@@ -129,5 +129,11 @@ Now you should be able to point your browser to =localhost:9999= and see the Jup
 
 Save the last command as you will have to re-establish the port forwarding every time you loose connection, restart your droplet or your local machine.
 
-I hope to do another write-up explaining how you do data science with Clojure by doing R and Python interop. Thanks 
+I hope to do another write-up explaining how you do data science with Clojure by doing R and Python interop. 
 
+** Destroying the droplet
+In order to stop Digital Ocean from billing for the droplet you need to destroy it. This can be done simply by issuing this command:
+#+begin_src bash
+$ doctl compute droplet delete <enter-the-name-of-your-droplet>
+#+end_src
+Provisioning a new one is simple just jump back to the previous section. 
