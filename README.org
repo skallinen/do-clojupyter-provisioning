@@ -1,11 +1,14 @@
 * Installing a Clojupyter notebook on a Digital Ocean droplet
 ** Backstory 
 My daughter has a maths assignment for her IB school that needs to be ready in a few months. There is quite some text involved and also some maths, obviously. They normally use a combination of office tools: word, excel etc. A lot of screen shots and copypasting.
+
 Although I like to do my stuff in emacs, even the R stuff, I showed her how Jupyter notebooks with Python. She thought it was interesting, but as we have been doing some Clojure puzzles together for the past year, she asked if one could do the notebook things with Clojure. That of course warmed this old Lisp heart so I replied that yes we can make that happen.
+
 To be honest it is not a very simple process to currently get access to notebooks that support Clojure. First, I did some searching for SaS notebooks, and could not find any free or cheap that would do. So I started looking into hosting one myself. The other option would be to install it on her laptop locally, but as I am guessing this will need some maintenance effort, a cloud option is more handy for this use case. 
+
 Eventually, I settled for a Digital Ocean droplet. They are easy to set up and maintain and have a good command line tool to automate a big part of the process.
 
-I'll document the setup process here and provide a script that does most of the heavy lifting in terms of installing the conda stuff as it is not super trivial.
+I'll try to capture and document the entire setup process here, to help myself in the future and perhaps lower the barrier for others to try. Provided here is also a small script that does most of the heavy lifting in terms of installing the conda stuff as it is not entirely trivial.
 
 ** Preparations
 *** Sign Up to Digital Ocean
