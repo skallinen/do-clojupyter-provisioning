@@ -136,7 +136,7 @@ Save the last command as you will have to re-establish the port forwarding every
 I hope to do another write-up explaining how you do data science with Clojure by doing R and Python interop. 
 
 ** Destroying the droplet
-In order to stop Digital Ocean from billing for the droplet you need to destroy it. This can be done simply by issuing this command:
+In order to stop Digital Ocean billing for the droplet, if you are not using it, you need to destroy it. This can be done simply by issuing this command:
 #+begin_src bash
 $ doctl compute droplet delete <the-name-of-your-droplet>
 #+end_src

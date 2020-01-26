@@ -1,6 +1,7 @@
 #!/bin/sh
 
 read  -p 'Notebook username: ' NB_U
+date +"%T"
 
 # create user
 adduser $NB_U
@@ -32,3 +33,4 @@ apt update -y
 apt install -y libcurl4-openssl-dev libxml2-dev libssl-dev libudunits2-dev libcairo2-dev libfontconfig1-dev libpoppler-cpp-dev
 apt-get install --yes r-base r-recommended r-base-dev
 R -e 'install.packages(c("Rserve", "tidyverse", "ggthemes", "mice", "svglite", "randomForest"), lib="/usr/local/lib/R/site-library")'
+date +"%T"
