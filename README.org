@@ -1,0 +1,131 @@
+* Installing a Clojupyter notebook on Digital Ocean
+My daughter has a maths assignment for IB that needs to be ready in a few months. There is quite some text involved and also some maths. They normally use a combination of office tools: word, excel etc. Although I like to do my stuff in emacs, I showed her how Jupyter notebooks with Python work. She thought it was interesting, but as we have been doing some Clojure puzzles together for the past year, she asked if one could do the notebook things with Clojure. That of course warmed this old heart, and I replied that yes we can make that happen. 
+First I loooked for different SaS notebooks, and could find any free or cheap that support clojure. Then I started looking into hosting one myself. The other option would be to install it on her laptop locally, but as I am guessing this will need some maintenance a cloud option is more handy for this use case. 
+So I settled for a Digital Ocean droplet. They are easy to set up and maintain and have a good command line tool to automate a big part of the process.
+
+I'll document the setup process here and provide for a script that does most of the heavy lifting in termos of installing the conda stuff as it is not super trivial.
+
+** Preparations
+*** Sign Up to Digital Ocean
+ Follow the instructions [[https://www.digitalocean.com/docs/getting-started/sign-up][here at their pages]]
+*** Generate and upload your ssh key
+ Install the =xclip= utility with the package manager of your distribution.
+
+ Ubuntu
+ #+begin_src bash 
+ $ apt install -y xclip
+ #+end_src
+
+ ArchLinux
+ #+begin_src 
+ $ pacman -S xclip
+ #+end_src
+ and so forth...
+
+ If you havent already done so generate an ssh-key:
+ #+begin_src bash 
+ $ ssh-keygen -t rsa -b 4096
+ #+end_src
+
+ Now copy the public key to your clip board
+ #+begin_src 
+ $ xclip -o -sel clip < ~/.ssh/id_rsa.pub
+ #+end_src
+
+ Adding the key to your account:
+ 1. Log in to your Digital Ocean account with your browser.
+ 2. Click on the 'Security' button on the left sidebar underneath 'Billing'
+ 3. Click on 'Add SSH Key' button
+ 4. Paste the key from your clipboard to the field
+ 5. Add a name to the key as well. For instance 'Home Machine'
+
+*** Install and set up =doctl= the command line utility for Digital Ocean
+ Use your package manager to install doctl:
+
+ Ubuntu
+ #+begin_src bash 
+ $ apt install -y doctl
+ #+end_src
+
+ Retrieve your DigitalOcean access token and save it locally, run:
+ #+begin_src bash
+ $ doctl auth login
+ #+end_src
+
+ Check your account to see that everything works:
+ #+begin_src bash
+ $ doctl account get
+ #+end_src
+
+** Provisioning the Clojupyter droplet installation
+Start by cloning this repository and cd into the folder
+
+#+begin_src bash 
+$ git clone https://github.com/skallinen/do-clojupyter-provisioning.git
+$ cd do-clojupyter-provisioning
+#+end_src
+
+Run the following commands to create a droplet and copy the installation script to it:
+#+begin_src bash
+$ read  -p 'Enter the name of the droplet, something like 'do-clojupyter': ' NAME; doctl compute droplet create $NAME --size s-1vcpu-2gb --image ubuntu-18-04-x64 --region fra1 --ssh-keys  $(doctl compute ssh-key list --format FingerPrint --no-header) --enable-backups; echo "One moment, waiting for the droplet to spin up...";sleep 60; scp -o StrictHostKeyChecking=no notebook-install.sh root@$(doctl compute droplet list $NAME --format "PublicIPv4" --no-header):/root/; doctl compute ssh $NAME
+#+end_src
+
+It will ask for a name for the droplet. Give it a name that makes sense. I use =do-clojupyter=, the do referring to digital ocean. The droplet specified in the commands is a minimum size droplet needed to run the notebook but also some necessary R libraries such as =tidyverse= if you are playing with r-interop. In January 2020 this cost $10 per month. You can increase and decrease the ram size and number of vCPUs according to use cases. Note that you will be billed for the droplet regarless if it is on or not. You need to destroy the droplet in order to stop the billing. So remember to do that after you have finished with this if you just want to try it out. It is easy to reprovision a droplet when you need it again.
+
+
+Now you should be inside the droplet as root, run the installation script:
+#+begin_src bash 
+$ ./notebook-install.sh
+#+end_src
+
+It will start by asking the system username. Give it a name. I used "grace".
+
+Next it will ask for you to type the UNIX password, type it into the prompt and then repeat it when it asks you to. Then press enter until the user configuration is finished.
+
+The system will now be installing. This will take quite some time. Go and have some lunch.
+
+Finally when it is finished log in as the user you defined above:
+
+#+begin_src bash 
+$ su - <youruser>
+#+end_src
+
+Change directory to home
+#+begin_src bash 
+$ cd
+#+end_src
+
+Now set the password for the notebooks.
+
+#+begin_src bash
+$ conda activate notebook
+$ jupyter notebook password
+#+end_src
+
+Now it  will ask for your password twice.
+
+When that is done you can start the notebook:
+
+#+begin_src bash 
+$ screen -d -m -S clojupyter bash -c 'jupyter notebook --no-browser --port=8889'
+#+end_src
+
+Now exit the remote terminal 
+#+begin_src bash 
+# first exit from user
+$ exit
+# then from the remote machine to get back to local terminal
+$ exit
+#+end_src
+
+Evaluate the following command on your local machine to port forward the traffic from your localhost to the remote localhost:
+
+#+begin_src bash 
+ssh -N -f -L localhost:9999:localhost:8889 <youruser>@$(doctl compute droplet list $NAME --format "PublicIPv4" --no-header)
+#+end_src
+
+Now you should be able to point your browser to =localhost:9999= and see your notebooks.
+
+Save the last command as you will have to re-establish the port forwarding every time you loose connection, restart your droplet or your local machine.
+
+
