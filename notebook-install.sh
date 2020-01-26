@@ -6,7 +6,6 @@ read  -p 'Notebook username: ' NB_U
 adduser $NB_U
 usermod -aG sudo $NB_U
 
-
 apt update
 apt-get upgrade -y
 
@@ -22,7 +21,7 @@ cd /tmp/; curl -O https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_
 su - $NB_U -c 'bash /tmp/Anaconda3-2019.10-Linux-x86_64.sh -b'
 su - $NB_U -c "source ~/anaconda3/etc/profile.d/conda.sh; conda init"
 
-su - $NB_U -c "source ~/anaconda3/etc/profile.d/conda.sh; yes '' | conda update -y -n base -c defaults conda; conda create -y --name notebook python=3; conda activate notebook; conda install -y -c conda-forge pandoc; conda install -y -c simplect clojupyter; jupyter notebook --generate-config; echo $NB_PW > nb_pw.txt; echo $NB_PW >> nb_pw.txt;"
+su - $NB_U -c "source ~/anaconda3/etc/profile.d/conda.sh; yes '' | conda update -y -n base -c defaults conda; conda create -y --name notebook python=3; conda activate notebook; conda install -y -c conda-forge pandoc; conda install -y -c simplect clojupyter; jupyter notebook --generate-config;"
 
 # Rstats
 apt install -y apt-transport-https software-properties-common
