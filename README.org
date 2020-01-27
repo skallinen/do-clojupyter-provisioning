@@ -14,7 +14,7 @@ Next to Clojupyter we will also install R and some packages there to be able to 
 
 ** Preparations
 *** Sign Up to Digital Ocean
- Follow the instructions [[https://www.digitalocean.com/docs/getting-started/sign-up][here at their pages]]
+ Follow the instructions [[https://www.digitalocean.com/docs/getting-started/sign-up][here.]]
 *** Generate and upload your ssh key
  Install the =xclip= utility with the package manager of your distribution.
 
