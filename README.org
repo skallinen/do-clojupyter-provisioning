@@ -142,4 +142,4 @@ In order to stop Digital Ocean billing for the droplet, if you are not using it,
 #+begin_src bash
 $ doctl compute droplet delete <the-name-of-your-droplet>
 #+end_src
-Provisioning a new one is simple, just jump back and repeat the steps in the previous section. 
+Provisioning a new one is simple, just jump back and repeat the steps in the previous section. And you can have lunch again! 
