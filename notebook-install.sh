@@ -32,5 +32,7 @@ add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic/'
 apt update -y
 apt install -y libcurl4-openssl-dev libxml2-dev libssl-dev libudunits2-dev libcairo2-dev libfontconfig1-dev libpoppler-cpp-dev
 apt-get install --yes r-base r-recommended r-base-dev
-R -e 'install.packages(c("Rserve", "tidyverse", "ggthemes", "mice", "svglite", "randomForest"), lib="/usr/local/lib/R/site-library")'
+R -e 'install.packages(c("ggplot2", "dplyr", "ggthemes", "mice", "svglite", "randomForest"), lib="/usr/local/lib/R/site-library")'
+R -e 'install.packages(c("Rserve"), lib="/usr/local/lib/R/site-library", install.packages("Rserve",,"http://rforge.net"))'
+
 date +"%T"
